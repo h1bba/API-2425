@@ -1,0 +1,21 @@
+
+
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+
+<h1>Skins voor {{ weapon }}</h1>
+<a href="/">← Terug naar overzicht</a>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+  {% for skin in skins %}
+    <div style="border: 1px solid #ccc; padding: 10px; width: 200px;">
+        <a href="/skin/{{ skin.name | url_encode | replace: '+', '%20' }}">
+        <h4>{{ skin.name }}</h4>
+      <img src="{{ skin.image }}" alt="{{ skin.name }}" width="180">
+      </a>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

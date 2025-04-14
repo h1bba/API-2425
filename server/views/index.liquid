@@ -2,16 +2,18 @@
 
 {% block content %}
 
-<h1 class="h1">{{ title }}</h1>
+<h1>{{ title }}</h1>
 
-<ul class="grid">
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
   {% for item in items %}
-    <li>
-      <a href="/plant/{{ item.id }}">
-        {% render 'server/components/card/card.liquid', item: item %}
+    <div style="border: 1px solid #ccc; padding: 10px; width: 200px;">
+      <a href="/weapon/{{ item.name | url_encode | replace: '+', '%20' }}">
+
+        <h3>{{ item.name }}</h3>
+        <img src="{{ item.image }}" alt="{{ item.name }}" width="180">
       </a>
-    </li>
+    </div>
   {% endfor %}
-</ul>
+</div>
 
 {% endblock %}

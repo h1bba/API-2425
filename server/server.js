@@ -3,29 +3,7 @@ import { App } from '@tinyhttp/app';
 import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
-
-const data = {
-  'beemdkroon': {
-    id: 'beemdkroon',
-    name: 'Beemdkroon',
-    image: {
-      src: 'https://i.pinimg.com/736x/09/0a/9c/090a9c238e1c290bb580a4ebe265134d.jpg',
-      alt: 'Beemdkroon',
-      width: 695,
-      height: 1080,
-    }
-  },
-  'wilde-peen': {
-    id: 'wilde-peen',
-    name: 'Wilde Peen',
-    image: {
-      src: 'https://mens-en-gezondheid.infonu.nl/artikel-fotos/tom008/4251914036.jpg',
-      alt: 'Wilde Peen',
-      width: 418,
-      height: 600,
-    }
-  }
-}
+import fetch from 'node-fetch';
 
 const engine = new Liquid({
   extname: '.liquid',
@@ -35,28 +13,98 @@ const app = new App();
 
 app
   .use(logger())
-  .use('/', sirv('dist'))
-  .listen(3000, () => console.log('Server available on http://localhost:3000'));
+  .use('/', sirv('dist'));
 
+// Home route
+// base weapons
 app.get('/', async (req, res) => {
-  return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', items: Object.values(data) }));
-});
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/base_weapons.json');
+    const steamData = await response.json();
 
-app.get('/plant/:id/', async (req, res) => {
-  const id = req.params.id;
-  const item = data[id];
-  if (!item) {
-    return res.status(404).send('Not found');
+    const items = Object.values(steamData).slice(0, 100); // neem eerste 20
+    console.log(items);
+
+    const html = await renderTemplate('server/views/index.liquid', {
+      title: 'CS Base Weapons',
+      items
+    });
+
+    return res.send(html);
+  } catch (err) {
+    console.error('Fout bij ophalen van base weapons:', err);
+    return res.status(500).send('Er is iets misgegaan.');
   }
-  return res.send(renderTemplate('server/views/detail.liquid', { title: `Detail page for ${id}`, item }));
 });
 
-const renderTemplate = (template, data) => {
+
+// weapon category
+app.get('/weapon/:weaponName', async (req, res) => {
+  const weaponName = decodeURIComponent(req.params.weaponName);
+
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json');
+    const allSkins = await response.json();
+
+    console.log(weaponName);
+
+
+    // Filter skins die beginnen met bv. "AK-47 |"
+    const matchingSkins = Object.values(allSkins).filter(skin =>
+      skin.name.includes(`${weaponName} |`)
+    ).slice(0, 20); // neem max 10
+
+    const html = await renderTemplate('server/views/weapon.liquid', {
+      title: weaponName,
+      weapon: weaponName,
+      skins: matchingSkins
+    });
+
+    return res.send(html);
+  } catch (err) {
+    console.error('Fout bij ophalen van skins:', err);
+    return res.status(500).send('Er is iets misgegaan.');
+  }
+});
+
+// skin showcase
+app.get('/skin/:skinName', async (req, res) => {
+  const skinName = decodeURIComponent(req.params.skinName);
+
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json');
+    const allSkins = await response.json();
+
+    const skin = Object.values(allSkins).find(s =>
+      s.name.toLowerCase() === skinName.toLowerCase()
+    );
+
+    if (!skin) {
+      return res.status(404).send('Skin niet gevonden');
+    }
+
+    const html = await renderTemplate('server/views/skin.liquid', {
+      title: skin.name,
+      skin
+    });
+
+    return res.send(html);
+  } catch (err) {
+    console.error('Fout bij ophalen van skin:', err);
+    return res.status(500).send('Er is iets misgegaan.');
+  }
+});
+
+
+// Render functie
+const renderTemplate = async (template, data) => {
   const templateData = {
     NODE_ENV: process.env.NODE_ENV || 'production',
     ...data
   };
 
-  return engine.renderFileSync(template, templateData);
+  return await engine.renderFile(template, templateData);
 };
 
+// Start server
+app.listen(3000, () => console.log('Server available on http://localhost:3000'));

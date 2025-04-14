@@ -1,0 +1,16 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+
+<h1>{{ skin.name }}</h1>
+<a href="/">← Terug naar overzicht</a>
+
+<div style="margin-top: 20px;">
+  <img src="{{ skin.image }}" alt="{{ skin.name }}" width="300">
+  <p><strong>Rarity:</strong> {{ skin.rarity }}</p>
+  <p><strong>Weapon:</strong> {{ skin.weapon }}</p>
+  <p><strong>Pattern:</strong> {{ skin.pattern }}</p>
+  <p><strong>Collection:</strong> {{ skin.collection }}</p>
+</div>
+
+{% endblock %}
