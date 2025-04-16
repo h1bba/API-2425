@@ -6,7 +6,7 @@
 
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
   {% for item in items %}
-    <div style="border: 1px solid #ccc; padding: 10px; width: 200px;">
+    <div class="item-container">
       <a href="/weapon/{{ item.name | url_encode | replace: '+', '%20' }}">
 
         <h3>{{ item.name }}</h3>

@@ -55,20 +55,9 @@ table {
 
 /* eigen css */
 
-main>div>div>a {
-  text-align: center;
-  text-decoration: none;
-  color: white;
 
-  display: flex;
-  flex-direction: column;
-}
 
 main>div {
-  margin: auto;
-}
-
-main>div>div>a>img {
   margin: auto;
 }
 

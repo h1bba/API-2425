@@ -1,5 +1,43 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('/client/public/Lato-Light.woff2') format('woff2');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('/client/public/Lato-Regular.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('/client/public/Lato-Bold.woff2') format('woff2');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('/client/public/Lato-Black.woff2') format('woff2');
+  font-weight: 700;
+}
+
+h2.skin-title {
+  font-family: 'Lato', sans-serif;
+  font-weight: 800;
+
+  /* https://css-tricks.com/adding-stroke-to-web-text/ */
+  -webkit-text-fill-color: transparent;
+  /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: white;
+
+  font-size: clamp(1rem, 8vw, 40rem);
+  text-align: center;
+}
+
 body {
-  font-family: system-ui, sans-serif;
+  font-family: sans-serif;
   font-weight: 400;
 }
 
@@ -14,4 +52,3 @@ body {
   margin-bottom: 10px;
   font-weight: 600;
 }
-

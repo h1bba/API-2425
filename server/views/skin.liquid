@@ -2,15 +2,17 @@
 
 {% block content %}
 
-<h1>{{ skin.name }}</h1>
+<h2 class="skin-title">{{ skin.name }}</h2>
 <a href="/">← Terug naar overzicht</a>
 
-<div style="margin-top: 100px; background-color: {{ skin.rarity.color }};">
-  <img src="{{ skin.image }}" alt="{{ skin.name }}" width="300">
-  <p><strong>Rarity:</strong> {{ skin.rarity }}</p>
-  <p><strong>Weapon:</strong> {{ skin.weapon }}</p>
-  <p><strong>Pattern:</strong> {{ skin.pattern }}</p>
-  <p><strong>Collection:</strong> {{ skin.collection }}</p>
+<div style="background-color: {{ skin.rarity.color }};">
+  <img class="skin-img"src="{{ skin.image }}" alt="{{ skin.name }}" width="300">
+  <ul>
+    <li>Rarity: {{ skin.rarity }}</li>
+    <li>Weapon: {{ skin.weapon }}</li>
+    <li>Pattern: {{ skin.pattern }}</li>
+    <li>Collection: {{ skin.collection }}</li>
+  </ul>
 </div>
 
 {% endblock %}

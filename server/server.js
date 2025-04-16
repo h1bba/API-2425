@@ -22,12 +22,13 @@ app.get('/', async (req, res) => {
   try {
     const response = await fetch('https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/base_weapons.json');
     const steamData = await response.json();
+    const disabledWeapons = ['C4 Explosive', 'Default CT Gloves', 'Default T Gloves', 'Medi-Shot', 'High Explosive Grenade', 'Flashbang', 'Decoy Grenade', 'Incendiary Grenade', 'Molotov', 'Smoke Grenade'];
+    const items = Object.values(steamData).filter(item => !disabledWeapons.includes(item.name)).slice(0, 100); // neem eerste 20
 
-    const items = Object.values(steamData).slice(0, 100); // neem eerste 20
     // console.log(items);
 
     const html = await renderTemplate('server/views/index.liquid', {
-      title: 'CS Base Weapons',
+      title: 'Counter Strike Weapons',
       items
     });
 

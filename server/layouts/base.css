@@ -1,5 +1,5 @@
 :root {
-  --backgroundColor: #DFECFF;
+  --backgroundColor: #eff5ff;
   --itemBackground: rgba(0, 0, 0, 0.2);
 }
 
@@ -7,10 +7,11 @@ body {
   background-color: var(--backgroundColor);
 }
 
+/* 
 header a {
   display: block;
   text-align: left;
-}
+} */
 
 header a h1 {
   font-size: 32px;
@@ -25,15 +26,86 @@ header {
   display: flex;
   width: 100%;
   justify-content: space-around;
+  align-items: end;
 
   padding-right: 2em;
   padding-left: 2em;
   padding-top: 4em;
   padding-bottom: 2em;
+
+  box-sizing: border-box;
 }
 
 
 
 footer {
   padding: 1rem;
+}
+
+@keyframes hoverItem {
+  0% {
+    transform: scale(1);
+    rotate: 0deg;
+  }
+
+  100% {
+    transform: scale(1.1);
+    rotate: -17deg;
+  }
+}
+
+
+
+.item-container {
+  padding: 10px;
+  width: 200px;
+  height: 12rem;
+  border-radius: 0.5em;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(45, 45, 45, 0.21) 100%);
+
+  a {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+
+
+  h3 {
+    font-size: 1.2rem;
+    padding: 1em;
+  }
+
+}
+
+.item-container img {
+  display: flex;
+  margin: -1em auto;
+  transition: transform 0.3s ease;
+}
+
+.item-container:hover img {
+  transform: rotate(-17deg) scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.skin-img {
+  width: 80vw;
+  max-width: 1024px;
+
+  display: block;
+  margin: -2rem auto;
+
+
+}
+
+ul {
+  display: flex;
+}
+
+ul li {
+  list-style: none;
 }
