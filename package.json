@@ -21,12 +21,13 @@
     "dotenv": "^16.4.7",
     "liquidjs": "^10.21.0",
     "node-fetch": "^3.3.2",
-    "nodemon": "^3.1.9",
     "npm-run-all": "^4.1.5",
     "sirv": "^3.0.1",
     "vite": "^6.2.3"
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
     "rimraf": "^6.0.1"
   }
 }

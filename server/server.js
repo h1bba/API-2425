@@ -13,7 +13,8 @@ const app = new App();
 
 app
   .use(logger())
-  .use('/', sirv('dist'));
+  .use('/', sirv(process.env.NODE_ENV === 'development' ? 'client' : 'dist'));
+
 
 // Home route
 // base weapons
@@ -23,7 +24,7 @@ app.get('/', async (req, res) => {
     const steamData = await response.json();
 
     const items = Object.values(steamData).slice(0, 100); // neem eerste 20
-    console.log(items);
+    // console.log(items);
 
     const html = await renderTemplate('server/views/index.liquid', {
       title: 'CS Base Weapons',

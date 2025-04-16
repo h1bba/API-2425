@@ -17,9 +17,13 @@
   {% block scripts %}{% endblock %}
 </head>
 
-<body>
+<body style="background-color: {{ skin.rarity.color |  default: 'var(--backgroundColor)' }};">
   <header>
-    Deze header staat op elke pagina
+    <a><h1>FindMySkins</h1></a>
+    <input type="search">
+
+      <a>My wishlist</a>
+
   </header>
   <main>
     {% block content %}{% endblock %}
