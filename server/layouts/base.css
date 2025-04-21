@@ -81,6 +81,11 @@ footer {
 
 }
 
+.item-container:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.33) 0%, rgba(45, 45, 45, 0.33) 100%);
+  transition: 0.3s ease;
+}
+
 .item-container img {
   display: flex;
   margin: -1em auto;

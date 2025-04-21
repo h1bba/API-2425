@@ -22,14 +22,45 @@ app.get('/', async (req, res) => {
   try {
     const response = await fetch('https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/base_weapons.json');
     const steamData = await response.json();
-    const disabledWeapons = ['C4 Explosive', 'Default CT Gloves', 'Default T Gloves', 'Medi-Shot', 'High Explosive Grenade', 'Flashbang', 'Decoy Grenade', 'Incendiary Grenade', 'Molotov', 'Smoke Grenade'];
-    const items = Object.values(steamData).filter(item => !disabledWeapons.includes(item.name)).slice(0, 100); // neem eerste 20
 
-    // console.log(items);
+    // wapens die niet gedisplayed horen te worden
+    const disabledWeapons = [
+      'C4 Explosive', 'Default CT Gloves', 'Default T Gloves',
+      'Medi-Shot', 'High Explosive Grenade', 'Flashbang',
+      'Decoy Grenade', 'Incendiary Grenade', 'Molotov', 'Smoke Grenade'
+    ];
+
+    //categories voor filteren van base wapens
+    const riflesCategory = [
+      'FAMAS', 'Galil AR', 'M4A4', 'M4A1-S', 'AK-47', 'SG 553', 'SSG 08', 'AUG', 'AWP', 'SCAR-20', 'G3SG1'
+    ]
+
+    const pistolsCategory = [
+      'USP-S', 'P2000', 'Glock-18', 'Dual Berettas', 'P250', 'Five-SeveN', 'Tec-9', 'CZ75-Auto', 'Desert Eagle', 'R8 Revolver'
+    ]
+
+    const heavyCategory = [
+      'Nova', 'XM1014', 'Sawed-Off', 'MAG-7', 'M249', 'Negev'
+    ]
+
+    const submachineCategory = [
+      'MP9', 'MAC-10', 'MP7', 'UMP-45', 'P90', 'PP-Bizon', 'MP5-SD'
+    ]
+
+    const knivesCategory = []
+
+
+    // Alles laden + niet-toonbare wapens verwijderen
+    let items = Object.values(steamData).filter(item =>
+      !disabledWeapons.includes(item.name)
+    );
+
+    items = items.slice(0, 100);
+
 
     const html = await renderTemplate('server/views/index.liquid', {
       title: 'Counter Strike Weapons',
-      items
+      items,
     });
 
     return res.send(html);
