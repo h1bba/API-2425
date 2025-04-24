@@ -2,9 +2,39 @@
 
 {% block content %}
 
-<h1>{{ title }}</h1>
+{% comment %} <h1>{{ title }}</h1> {% endcomment %}
 
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+<form method="GET" action="/" style="margin-bottom: 2rem;">
+  <label>
+    <input type="checkbox" name="category" value="rifles"
+      {% if categoriesSelected contains 'rifles' %}checked{% endif %}>
+    Rifles
+  </label>
+  <label>
+    <input type="checkbox" name="category" value="pistols"
+      {% if categoriesSelected contains 'pistols' %}checked{% endif %}>
+    Pistols
+  </label>
+  <label>
+    <input type="checkbox" name="category" value="heavy"
+      {% if categoriesSelected contains 'heavy' %}checked{% endif %}>
+    Heavy
+  </label>
+  <label>
+    <input type="checkbox" name="category" value="submachine"
+      {% if categoriesSelected contains 'submachine' %}checked{% endif %}>
+    SMGs
+  </label>
+  <label>
+    <input type="checkbox" name="category" value="knives"
+      {% if categoriesSelected contains 'knives' %}checked{% endif %}>
+    Knives
+  </label>
+  <button type="submit">Filter</button>
+</form>
+
+
+<section class="overview-container">
   {% for item in items %}
     <div class="item-container">
       <a href="/weapon/{{ item.name | url_encode | replace: '+', '%20' }}">
@@ -14,6 +44,6 @@
       </a>
     </div>
   {% endfor %}
-</div>
+</section>
 
 {% endblock %}

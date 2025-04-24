@@ -5,16 +5,24 @@
 <a href="/">← Terug naar overzicht</a>
 <h2>Vind jouw {{ weapon }} skin</h2>
 
-<div class="container">
+<section class="container">
   {% for skin in skins %}
-    <div class="item" style=" background-color: {{ skin.rarity.color }};">
+    <article class="item" style=" background-color: {{ skin.rarity.color }};">
         <a href="/skin/{{ skin.name | url_encode | replace: '+', '%20' }}">
-      <img src="{{ skin.image }}" alt="{{ skin.name }}" width="180">
-      <h4>{{ skin.name }}</h4>
+        <h3>{{ skin.name | split: ' | ' | last }}</h3>
+        <img src="{{ skin.image }}" alt="{{ skin.name }}" width="180"
+        style="view-transition-name: {{ skin.name 
+  | replace: ' ', '-' 
+  | replace: '|', '' 
+  | replace: ';', '' 
+  | replace: "'", '' 
+  | replace: '.', '' 
+  | replace: ',', '' 
+  | downcase }}">
 
       </a>
-    </div>
+    </article>
   {% endfor %}
-</div>
+</section>
 
 {% endblock %}

@@ -2,17 +2,43 @@
 
 {% block content %}
 
-<h2 class="skin-title">{{ skin.name }}</h2>
-<a href="/">← Terug naar overzicht</a>
+<h2 class="skin-title">{{ skin.name | split: ' | ' | last }}</h2>
+<a href="/">← Terug naar Home</a>
 
-<div style="background-color: {{ skin.rarity.color }};">
-  <img class="skin-img"src="{{ skin.image }}" alt="{{ skin.name }}" width="300">
+<article style="background-color: {{ skin.rarity.color }};">
+  <img class="skin-img"src="{{ skin.image }}" alt="{{ skin.name }}" width="400"
+  style="view-transition-name: {{ skin.name 
+  | replace: ' ', '-' 
+  | replace: '|', '' 
+  | replace: ';', '' 
+  | replace: "'", '' 
+  | replace: '.', '' 
+  | replace: ',', '' 
+  | downcase }}">
+</article>
+{% comment %} wishlist button {% endcomment %}
+  <form action="/wishlist" method="POST">
+  <input type="hidden" name="name" value="{{ skin.name }}">
+  <input type="hidden" name="image" value="{{ skin.image }}">
+  <button class="add-btn" type="submit">+ Voeg toe aan wishlist</button>
+</form>
   <ul>
-    <li>Rarity: {{ skin.rarity }}</li>
-    <li>Weapon: {{ skin.weapon }}</li>
-    <li>Pattern: {{ skin.pattern }}</li>
-    <li>Collection: {{ skin.collection }}</li>
+    <li>Rarity: {{ skin.rarity.name }}</li>
+    <li>Weapon: {{ skin.weapon.name }}</li>
+    <li>Pattern: {{ skin.pattern.name }}</li>
+    {% comment %} <li>Collection: {{ skin.collection }}</li> {% endcomment %}
   </ul>
-</div>
+
+
+  {% comment %} <button id="wishlist-button"
+  data-name="{{ skin.name }}"
+  data-image="{{ skin.image }}">
+  Voeg toe aan wishlist
+</button>
+<div id="wishlist-confirmation" style="margin-top: 1rem; display: none; color: green;">
+  Toegevoegd aan je wishlist
+</div> {% endcomment %}
+
+{% comment %} <script src="/client/skin.js"></script> {% endcomment %}
 
 {% endblock %}

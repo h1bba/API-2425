@@ -4,16 +4,56 @@ import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
 import fetch from 'node-fetch';
+import { LocalStorage } from 'node-localstorage';
+import { urlencoded } from 'milliparsec';
+
+const localStorage = new LocalStorage('./wishlist-data'); // map waar data wordt opgeslagen
+
 
 const engine = new Liquid({
   extname: '.liquid',
 });
 
 const app = new App();
+// nodig voor wishlist
+app.use(urlencoded());
 
 app
   .use(logger())
   .use('/', sirv(process.env.NODE_ENV === 'development' ? 'client' : 'dist'));
+
+// wishlist POST route
+
+app.post('/wishlist', (req, res) => {
+  const { name, image } = req.body;
+  const wishlist = JSON.parse(localStorage.getItem('skinWishlist') || '[]');
+
+  const exists = wishlist.find(item => item.name === name);
+  if (!exists) {
+    wishlist.push({ name, image });
+    localStorage.setItem('skinWishlist', JSON.stringify(wishlist));
+  }
+
+  res.redirect('/wishlist');
+});
+
+//wishlist clear route
+app.post('/wishlist/clear', (req, res) => {
+  localStorage.setItem('skinWishlist', '[]');
+  res.redirect('/wishlist');
+});
+
+// wishlist remove item route
+app.post('/wishlist/remove', (req, res) => {
+  const { name } = req.body;
+  let wishlist = JSON.parse(localStorage.getItem('skinWishlist') || '[]');
+
+  wishlist = wishlist.filter(item => item.name !== name); // verwijder item met die naam
+
+  localStorage.setItem('skinWishlist', JSON.stringify(wishlist));
+
+  res.redirect('/wishlist');
+});
 
 
 // Home route
@@ -27,7 +67,7 @@ app.get('/', async (req, res) => {
     const disabledWeapons = [
       'C4 Explosive', 'Default CT Gloves', 'Default T Gloves',
       'Medi-Shot', 'High Explosive Grenade', 'Flashbang',
-      'Decoy Grenade', 'Incendiary Grenade', 'Molotov', 'Smoke Grenade'
+      'Decoy Grenade', 'Incendiary Grenade', 'Molotov', 'Smoke Grenade', 'Knife'
     ];
 
     //categories voor filteren van base wapens
@@ -47,20 +87,42 @@ app.get('/', async (req, res) => {
       'MP9', 'MAC-10', 'MP7', 'UMP-45', 'P90', 'PP-Bizon', 'MP5-SD'
     ]
 
-    const knivesCategory = []
+    const knivesCategory = ['Bayonet', 'Butterfly Knife', 'Survival Knife', 'Paracord Knife', 'Classic Knife', 'Falchion Knife', 'Flip Knife', 'Gut Knife', 'Navaja Knife', 'Karambit', 'Kukri Knife', 'M9 Bayonet', 'Nomad Knife', 'Shadow Daggers', 'Skeleton Knife', 'Stiletto Knife', 'Bowie Knife', 'Huntsman Knife', 'Urus Knife', 'Talon Knife']
 
+    const categoryMap = {
+      rifles: riflesCategory,
+      pistols: pistolsCategory,
+      heavy: heavyCategory,
+      submachine: submachineCategory,
+      knives: knivesCategory
+    };
+
+    // Zet geselecteerde categorieën om naar array
+    let selectedCategories = req.query.category || [];
+
+    if (!Array.isArray(selectedCategories)) {
+      selectedCategories = [selectedCategories];
+    }
 
     // Alles laden + niet-toonbare wapens verwijderen
-    let items = Object.values(steamData).filter(item =>
+    let allWeapons = Object.values(steamData).filter(item =>
       !disabledWeapons.includes(item.name)
     );
 
-    items = items.slice(0, 100);
+    if (selectedCategories.length > 0) {
+      const allowedWeapons = selectedCategories.flatMap(cat => categoryMap[cat] || []);
+      allWeapons = allWeapons.filter(item =>
+        allowedWeapons.includes(item.name)
+      );
+    }
+
+    // items = items.slice(0, 100);
 
 
     const html = await renderTemplate('server/views/index.liquid', {
       title: 'Counter Strike Weapons',
-      items,
+      items: allWeapons.slice(0, 100),
+      categoriesSelected: selectedCategories
     });
 
     return res.send(html);
@@ -128,6 +190,18 @@ app.get('/skin/:skinName', async (req, res) => {
   }
 });
 
+
+// wishlist route
+app.get('/wishlist', async (req, res) => {
+  const wishlist = JSON.parse(localStorage.getItem('skinWishlist') || '[]');
+
+  const html = await renderTemplate('server/views/wishlist.liquid', {
+    title: 'Mijn Wishlist',
+    wishlist
+  });
+
+  return res.send(html);
+});
 
 // Render functie
 const renderTemplate = async (template, data) => {

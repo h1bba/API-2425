@@ -1,0 +1,27 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+{% if wishlist.size == 0 %}
+  <p>Je wishlist is leeg.</p>
+{% else %}
+  <section class=".item-container">
+    {% for item in wishlist %}
+      <article class="item" style="background-color: {{ skin.rarity.color }};">
+        <img class="wish-item" src="{{ item.image }}" alt="{{ item.name }}" width="150">
+        <p>{{ item.name }}</p>
+
+        
+        <form action="/wishlist/remove" method="POST" style="margin-top: 10px;">
+        <input type="hidden" name="name" value="{{ item.name }}">
+        <button type="submit">Verwijderen</button>
+    </form>
+      </article>
+    {% endfor %}
+    <form action="/wishlist/clear" method="POST">
+    <button type="submit">🗑 Wis wishlist</button>
+  </form>
+  </section>
+{% endif %}
+{% endblock %}

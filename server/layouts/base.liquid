@@ -19,17 +19,17 @@
 
 <body style="background-color: {{ skin.rarity.color |  default: 'var(--backgroundColor)' }};">
   <header>
-    <a><h1>FindMySkins</h1></a>
+    <a class="logo" href="/"><h1>FindMySkins</h1></a>
     <input type="search">
 
-      <a>My wishlist</a>
+      <a href="/wishlist">My wishlist</a>
 
   </header>
   <main>
     {% block content %}{% endblock %}
   </main>
   <footer>
-    Deze footer staat op elke pagina
+    {% comment %} Deze footer staat op elke pagina {% endcomment %}
   </footer>
 </body>
 </html>
