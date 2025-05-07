@@ -95,6 +95,16 @@ Ook heb ik de paginas wat responsiver gemaakt.
 
 ![Schermopname2025-05-07071112-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ddee0cf6-6fd5-403e-b9d6-74c94b1fb1fc)
 
+## Wat heb ik geleerd
+- Server sided en client sided rendering met Liquid en NodeJS
+- API fetch geavanceerd filteren
+- Data meegeven naar de volgende pagina
+- Onderzoek doen naar API en slechte API's herkennen
+- Routing in de server.js
+- Beter begrip script commands en package.json
+- Nieuwe web API's view transition en LocalStorage
+
+
 ## Wat zou ik doen als ik meer tijd had
 - Kijken of er een API is die de foto's kan upscalen
 - Consistentere styling aanhouden
