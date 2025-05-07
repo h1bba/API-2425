@@ -5,6 +5,7 @@
 :root {
   --backgroundColor: #eff5ff;
   --itemBackground: rgba(0, 0, 0, 0.2);
+  --wishlistBtn: rgba(199, 199, 199, 0.2);
 }
 
 body {
@@ -39,9 +40,13 @@ header {
   box-sizing: border-box;
 }
 
-
+header a:nth-of-type(2) {
+  color: black;
+  font-weight: bold;
+}
 
 footer {
+  text-align: center;
   padding: 1rem;
 }
 
@@ -59,26 +64,49 @@ footer {
 
 a {
   text-decoration: none;
-
+  color: black;
+  font-weight: bold;
 }
 
 .add-btn {
   font-size: 1.2rem;
   padding: 1em;
+  margin-top: 1em;
   background: var(--itemBackground);
   color: white;
 
   border: 1px solid white;
 
+  width: 100%;
+
+  transition: 0.5s ease;
 }
 
+.add-btn:hover {
+  background-color: var(--wishlistBtn);
+  border-color: var(--wishlistBtn);
+  cursor: pointer;
 
-.item-container {
+  transition: 0.5s ease;
+}
+
+.wishlist-container {
+  gap: 0.5em;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.wishitem {
+  border: 1px solid #ccc;
   padding: 10px;
-  width: 200px;
-  height: 12rem;
-  border-radius: 0.5em;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(45, 45, 45, 0.21) 100%);
+  width: 250px;
+  height: 186px;
+  border-radius: 0.5rem;
+
+  text-align: center;
 
   a {
     text-align: center;
@@ -89,17 +117,48 @@ a {
     height: 100%;
   }
 
+  h3 {
+    font-size: 1.2rem;
+    padding: 1em;
+    color: white;
+    text-shadow: 0px 0px 0.5em black;
+  }
+}
 
+.item-container {
+  margin: 1em;
+  position: relative;
+  padding: 10px;
+  width: 200px;
+  height: 12rem;
+  border-radius: 0.5em;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.11) 0%,
+    rgba(45, 45, 45, 0.21) 100%
+  );
+
+  a {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
   h3 {
     font-size: 1.2rem;
     padding: 1em;
   }
-
 }
 
 .item-container:hover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.33) 0%, rgba(45, 45, 45, 0.33) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.33) 0%,
+    rgba(45, 45, 45, 0.33) 100%
+  );
   transition: 0.3s ease;
 }
 
@@ -107,13 +166,15 @@ a {
   transition: 0.3s ease;
 }
 
-.item-container img, .item img {
+.item-container img,
+.item img {
   display: flex;
   margin: -1em auto;
   transition: transform 0.3s ease;
 }
 
-.item-container:hover img, .item:hover img {
+.item-container:hover img,
+.item:hover img {
   transform: rotate(-17deg) scale(1.1);
   transition: transform 0.3s ease;
 }
@@ -128,8 +189,16 @@ img.wish-item {
 
   display: block;
   margin: auto;
+}
 
+main > h2:first {
+  color: black;
+  font-weight: bold;
+}
 
+main > a:first {
+  color: black;
+  font-weight: bold;
 }
 
 ul {
@@ -141,18 +210,28 @@ ul {
 }
 
 ul li {
+  box-sizing: border-box;
+  flex-grow: 1;
+  text-align: center;
+
   width: max-content;
   padding: 1em;
   background: var(--itemBackground);
   color: white;
 
   display: inline-flex;
+  justify-content: center;
   list-style: none;
 
   border: 1px solid white;
 }
 
-
+.footertitle {
+  font-family: "Lato", sans-serif;
+  color: white;
+  font-weight: 800;
+  font-size: clamp(1rem, 15vw, 40rem);
+}
 
 /* skins page */
 .item {
@@ -179,14 +258,13 @@ ul li {
     color: white;
     text-shadow: 0px 0px 0.5em black;
   }
-
 }
 
 form {
   text-align: center;
 }
 
-form>* {
+form > * {
   padding: 0.5em;
 }
 
@@ -198,4 +276,20 @@ form>* {
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
+}
+
+@media screen and (max-width: 768px) {
+  ul {
+    flex-direction: column;
+  }
+
+  ul li {
+    width: unset;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+  }
 }

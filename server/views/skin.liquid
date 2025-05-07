@@ -2,8 +2,9 @@
 
 {% block content %}
 
-<h2 class="skin-title">{{ skin.name | split: ' | ' | last }}</h2>
 <a href="/">← Terug naar Home</a>
+<h2 class="skin-title">{{ skin.name | split: ' | ' | last }}</h2>
+
 
 <article style="background-color: {{ skin.rarity.color }};">
   <img class="skin-img"src="{{ skin.image }}" alt="{{ skin.name }}" width="400"
@@ -20,8 +21,7 @@
   <form action="/wishlist" method="POST">
   <input type="hidden" name="name" value="{{ skin.name }}">
   <input type="hidden" name="image" value="{{ skin.image }}">
-  <button class="add-btn" type="submit">+ Voeg toe aan wishlist</button>
-</form>
+
   <ul>
     <li>Rarity: {{ skin.rarity.name }}</li>
     <li>Weapon: {{ skin.weapon.name }}</li>
@@ -29,6 +29,8 @@
     {% comment %} <li>Collection: {{ skin.collection }}</li> {% endcomment %}
   </ul>
 
+  <button class="add-btn" type="submit">+ Voeg toe aan wishlist</button>
+  </form>
 
   {% comment %} <button id="wishlist-button"
   data-name="{{ skin.name }}"

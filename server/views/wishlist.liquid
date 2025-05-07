@@ -6,9 +6,9 @@
 {% if wishlist.size == 0 %}
   <p>Je wishlist is leeg.</p>
 {% else %}
-  <section class=".item-container">
+  <section class="wishlist-container">
     {% for item in wishlist %}
-      <article class="item" style="background-color: {{ skin.rarity.color }};">
+      <article class="wishitem" style="background-color: {{ skin.rarity.color }};">
         <img class="wish-item" src="{{ item.image }}" alt="{{ item.name }}" width="150">
         <p>{{ item.name }}</p>
 
