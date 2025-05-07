@@ -95,7 +95,7 @@ Ook heb ik de paginas wat responsiver gemaakt.
 
 ![Schermopname2025-05-07071112-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ddee0cf6-6fd5-403e-b9d6-74c94b1fb1fc)
 
-Final showcase
+**Final Showcase**
 
 ![ezgif com-video-to-gif-converter(4)](https://github.com/user-attachments/assets/bb20228f-14ab-42b8-8e4a-72545764c89d)
 
@@ -108,7 +108,7 @@ Final showcase
 - Onderzoek doen naar API en slechte API's herkennen
 - Routing in de server.js
 - Beter begrip script commands en package.json
-- Nieuwe web API's view transition en LocalStorage
+- Nieuwe web API's View transition en LocalStorage
 
 
 ## Wat zou ik doen als ik meer tijd had
