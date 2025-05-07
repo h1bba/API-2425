@@ -92,6 +92,7 @@ En ik heb ook een /remove en /clear geimplementeerd voor het bewerken van de wis
 ## Wat zou ik doen als ik meer tijd had
 - Kijken of er een API is die de foto's kan upscalen
 - Consistentere styling aanhouden
+- De website meer laten lijken op het ontwerp
 - Beter componenten verdelen
 - Vite uitvogelen
 - Live op Render zetten (lukt maar niet)
