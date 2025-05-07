@@ -95,6 +95,12 @@ Ook heb ik de paginas wat responsiver gemaakt.
 
 ![Schermopname2025-05-07071112-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ddee0cf6-6fd5-403e-b9d6-74c94b1fb1fc)
 
+Final showcase
+
+![ezgif com-video-to-gif-converter(4)](https://github.com/user-attachments/assets/bb20228f-14ab-42b8-8e4a-72545764c89d)
+
+
+
 ## Wat heb ik geleerd
 - Server sided en client sided rendering met Liquid en NodeJS
 - API fetch geavanceerd filteren
