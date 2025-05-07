@@ -75,6 +75,8 @@ En ik moest ook wat default wapens die geen skins hebben uitschakelen
 
 ![image](https://github.com/user-attachments/assets/113955a2-a555-49e0-b7d6-af3f27d871cc)
 
+Ook heb ik de achtergrond kleur van de pagina de kleur gemaakt van de skin rarity color vanuit de API, daarom zijn sommige skin pagina's een andere kleur
+
 
 ## Week 4
 
@@ -88,6 +90,10 @@ Ik had ook nog een wishlist pagina gemaakt om de LocalStorage natuurlijk ook wee
 En ik heb ook een /remove en /clear geimplementeerd voor het bewerken van de wishlist.
 
 ![image](https://github.com/user-attachments/assets/7ac11685-d8d9-41b1-adb7-145fc00160c3)
+
+Ook heb ik de paginas wat responsiver gemaakt.
+
+![Schermopname2025-05-07071112-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ddee0cf6-6fd5-403e-b9d6-74c94b1fb1fc)
 
 ## Wat zou ik doen als ik meer tijd had
 - Kijken of er een API is die de foto's kan upscalen
